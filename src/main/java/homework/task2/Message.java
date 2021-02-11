@@ -9,4 +9,17 @@ abstract public class Message {
 
     abstract public String send();
 
+    protected boolean canSend() {
+        if (content.length() < 5) {
+            return false;
+
+        } else if (content.isBlank()) {
+            return false;
+
+        } else return true;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

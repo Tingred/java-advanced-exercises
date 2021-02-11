@@ -1,7 +1,7 @@
 package homework.task2;
 
-public class Email extends Message{
-    final String  emailAddress;
+public class Email extends Message {
+    final String emailAddress;
     final String subject;
 
     public Email(String content) {
@@ -18,7 +18,25 @@ public class Email extends Message{
 
     @Override
     public String send() {
-        return null;
+        if (!canSend()) {
+            return "Email nie może zostać wysłany";
+        } else return "Email o treści \"" + getContent() + "\" został wysłany na email " + emailAddress;
+
     }
 
+    @Override
+    protected boolean canSend() {
+
+        if (getContent() == null) return false;
+        else if (getContent().isBlank()) return false;
+
+
+        else if (emailAddress == null) return false;
+
+        else if (!emailAddress.contains("@")) {
+            return false;
+        } else if (emailAddress.isBlank() || emailAddress.length() < 5) return false;
+
+        else return true;
+    }
 }

@@ -11,18 +11,27 @@ package homework.task5;
  * CZESC 2
  * Wyprowadz klasę z GasCar, w której spróbuj zepsuć działanie obu metod (nadpisując je, tak aby np. można było zatankować ujemną
  * objętość paliwa, lub nalać więcej niż wynosi. Napisz krótki program demonstrujący czy to Ci się udało.
- *
  */
 public class GasCar {
-    double fuelLevel;
-    double fuelCapacity;
+
+    private double fuelLevel;
+    private final double fuelCapacity;
+
+    public GasCar(double fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
+    }
+
+    public double getFuelLevel() {
+        return fuelLevel;
+    }
 
     /**
      * Metoda tankowania, powinna zmieniać poziom paliwa w fuelLevel
+     *
      * @param fuel objętość paliwa, które chce się dolać do baku
      * @return rzeczywista objętośc paliwa dolanego do baku
-     *
-     *
+     * <p>
+     * <p>
      * PRZYKLADY
      * Dla obiektu o parametrach
      * fuelCapacity równe 30
@@ -34,26 +43,72 @@ public class GasCar {
      * Przykład 3
      * wywołano metodę refuel(5) i zwrócona wartość wynosi 5, gdyż cała porcja zmieściła się w baku
      */
-    public double refuel(double fuel){
-        return 0;
+    public double refuel(double fuel) {
+
+        if (fuel <= 0)
+            return 0;
+
+        if ((fuelLevel + fuel) <= fuelCapacity) {
+            fuelLevel += fuel;
+            return fuel;
+        } else if ((fuelLevel + fuel) > fuelCapacity) {
+            double f = fuelCapacity-fuelLevel;
+            fuelLevel += f;
+            return fuel -f ;
+        }
+        else return 0;
     }
+
 
     /**
      * Metoda symulująca zużycie podanej porcji paliwa i zmieniająca fuelLevel
+     *
      * @param fuel objętość paliwa, które chce się zużyć
      * @return rzeczywista objętość zużytego paliwa
-     *
+     * <p>
      * Kontrakt jest podobny do metody refuel, z tą różnica, że powoduje zmniejszenie poziomu paliwa
      * PRZYKLADY
      * Dla obiektu o parametrach
-     *  fuelCapacity równe 30
-     *  fuelLLevel równe 10
-     *Przykład 1
+     * fuelCapacity równe 30
+     * fuelLLevel równe 10
+     * Przykład 1
      * wywołano metodę consume(30) i otrzymano wartość 10, gdyż tylko tyle można zużyć, bak został pusty
      * wywołano metodę consume(-10) i otrzymano wartośc 0, bo nie można zużyć ujemnego paliwa
      * wywołano metodę consume(2) i otrzymano wartość 2, gdyż w baku było 10, więc zużyto 2 i pozostało jeszcze 8
      */
-    public double consume(double fuel){
-        return 0;
+    public double consume(double fuel) {
+
+        if (fuel <= 0)
+            return 0;
+
+        else if ((fuelLevel - fuel) >= 0) {
+            fuelLevel -= fuel;
+            return fuel;
+        }
+        else if ((fuelLevel - fuel) < 0) {
+            double f =fuelLevel;
+            fuelLevel-=fuelLevel;
+            return fuel-f;
+        }
+        else return 0;
+    }
+    class HackedGasCar  extends GasCar{
+
+        public HackedGasCar(double fuelCapacity) {
+            super(fuelCapacity);
+        }
+
+        @Override
+        public double refuel(double fuel) {
+            fuelLevel+=fuel;
+            return fuel;
+        }
+
+        @Override
+        public double consume(double fuel) {
+            fuelLevel-=fuel;
+            return fuel;
+        }
     }
 }
+

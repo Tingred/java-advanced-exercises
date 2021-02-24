@@ -51,12 +51,11 @@ public class GasCar {
         if ((fuelLevel + fuel) <= fuelCapacity) {
             fuelLevel += fuel;
             return fuel;
-        } else if ((fuelLevel + fuel) > fuelCapacity) {
+        } else {
             double f = fuelCapacity-fuelLevel;
             fuelLevel += f;
-            return fuel -f ;
+            return f;
         }
-        else return 0;
     }
 
 
@@ -85,12 +84,11 @@ public class GasCar {
             fuelLevel -= fuel;
             return fuel;
         }
-        else if ((fuelLevel - fuel) < 0) {
+        else {
             double f =fuelLevel;
             fuelLevel-=fuelLevel;
-            return fuel-f;
+            return f;
         }
-        else return 0;
     }
     class HackedGasCar  extends GasCar{
 

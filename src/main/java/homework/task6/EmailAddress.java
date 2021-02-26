@@ -9,6 +9,7 @@ public class EmailAddress {
 
     private EmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+
     }
     public static EmailAddress of(String emailAddress){
         Pattern pattern = Pattern.compile("[A-Za-z0-9]+[@][A-Za-z0-9]+[.][A-Za-z0-9]+");

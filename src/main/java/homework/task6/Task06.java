@@ -43,6 +43,11 @@ public class Task06 {
         System.out.println(humanTemperature2.getFahrenheit());
         System.out.println(humanTemperature2.getKelvin());
         System.out.println(humanTemperature2.isNormal());
-
+        System.out.println("******************************");
+        Pesel mojPesel = Pesel.of("97100401279");
+        System.out.println(mojPesel.get());
+        System.out.println(mojPesel.isMale());
+        System.out.println(mojPesel.birthDate());
+        System.out.println(mojPesel.isFemale());
     }
 }
